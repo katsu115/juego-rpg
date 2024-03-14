@@ -1,0 +1,7 @@
+# ninja log v5
+2	1886	7320773330487771	CMakeFiles/Jueguito.dir/Character/Character.cpp.obj	fb6ba929404bbce7
+52	2498	7320773336584656	CMakeFiles/Jueguito.dir/main.cpp.obj	e51b9d61cee8f2e6
+75	2545	7320773337075481	CMakeFiles/Jueguito.dir/Player/Player.cpp.obj	681cb2db0020829f
+21	3242	7320773343996164	CMakeFiles/Jueguito.dir/Combat/Combat.cpp.obj	40ed3dfddf23f31b
+5	712	7320774056092604	CMakeFiles/Jueguito.dir/Enemy/Enemy.cpp.obj	2ae107fee246e9f3
+712	1011	7320774059005622	Jueguito.exe	1ee81055adecf08b
