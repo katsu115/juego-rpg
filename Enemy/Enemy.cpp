@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//TODO: Check the circular dependency
+
 int getRolledAttack(int attack) {
     int lowerLimit = attack * .80;
     return (rand() % (attack - lowerLimit)) + lowerLimit;
@@ -44,12 +44,27 @@ Character* Enemy::getTarget(vector<Player *> teamMembers) {
     return teamMembers[targetIndex];
 }
 
-Action Enemy::takeAction(vector<Player *> player) {
+Action Enemy::takeAction(vector<Player *> players) {
     Action myAction;
     myAction.speed = getSpeed();
     myAction.subscriber = this;
-    Character* target = getTarget(player);
+    Character* target = getTarget(players);
     myAction.target = target;
+
+    // Calcular la probabilidad de escape si el jugador tiene menos del 15% de vida
+    if (target->getHealth() < target->getHealth() * 15) {
+        // Generar un número aleatorio entre 1 y 100
+        int escapeChance = rand() % 100 + 1;
+        // Si el número aleatorio está dentro del 5%, el enemigo intenta escapar
+        if (escapeChance <= 15) {
+            myAction.action = [this]() {
+                cout << getName() << " ha escapado." << endl;
+            };
+            return myAction;
+        }
+    }
+
+    // Si no intenta escapar, realiza el ataque normal
     myAction.action = [this, target]() {
         doAttack(target);
     };

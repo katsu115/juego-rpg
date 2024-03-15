@@ -9,9 +9,10 @@ using namespace std;
 
 int main() {
 
-    Player *player = new Player("nodca", 4, 7, 2, 10);
-    Enemy *enemy = new Enemy("katsu", 20, 5, 2, 7);
-    Enemy *enemy2 = new Enemy("lolo", 10, 5, 5, 2);
+    Player *player = new Player("nodca", 15, 5, 2, 10);
+    Enemy *enemy = new Enemy("katsu", 15, 5, 1, 7);
+    Enemy *enemy2 = new Enemy("lolo", 15, 5, 5, 2);
+
 
     vector<Character*> participants;
     participants.push_back(player);

@@ -27,6 +27,7 @@ void Player::takeDamage(int damage) {
     if(health <= 0) {
         cout<<"You have died"<<endl;
     }
+    else(health);
 }
 
 void Player::flee(vector<Enemy*> enemies) {
