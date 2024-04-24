@@ -1,5 +1,6 @@
 //created by Pc Andrea on 13/03/24
-#ifndef Jueguito_COMBAT_H
+#ifndef Juego_COMBAT_H
+#define Juego_H
 #pragma once
 #include "../Character/Character.h"
 #include "../Player/Player.h"

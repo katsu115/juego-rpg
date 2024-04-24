@@ -5,14 +5,17 @@
 
 using namespace std;
 
-
+//TODO: Check the circular dependency
 int getRolledAttack(int attack) {
     int lowerLimit = attack * .80;
     return (rand() % (attack - lowerLimit)) + lowerLimit;
 }
 
-Enemy::Enemy(string name, int health, int attack, int defense, int speed) : Character(name, health, attack, defense, speed, false) {
+
+//costructor de ENEMY
+Enemy::Enemy(char name[30], int health, int attack, int defense, int speed, char arm[20]) : Character(name, health, attack, defense, speed, false, arm) {
 }
+
 
 void Enemy::doAttack(Character *target) {
     int rolledAttack = getRolledAttack(getAttack());
@@ -23,14 +26,15 @@ void Enemy::doAttack(Character *target) {
 void Enemy::takeDamage(int damage) {
     setHealth(getHealth() - damage);
     if(getHealth() <= 0) {
-        cout<<getName()<<" has died"<<endl;
+        cout<<getName()<<" has died "<<endl;
     }
     else {
-        cout<<getName()<<" has taken " << damage << " damage" << endl;
+        cout<<getName()<<" has taken " << damage << " damage whit a "<<getArm()<< endl;
     }
 }
 
 Character* Enemy::getTarget(vector<Player *> teamMembers) {
+
 
     int targetIndex = 0;
     int lowestHealth = INT_MAX;
@@ -44,30 +48,26 @@ Character* Enemy::getTarget(vector<Player *> teamMembers) {
     return teamMembers[targetIndex];
 }
 
-Action Enemy::takeAction(vector<Player *> players) {
+
+Action Enemy::takeAction(vector<Player *> player) {
     Action myAction;
     myAction.speed = getSpeed();
     myAction.subscriber = this;
-    Character* target = getTarget(players);
-    myAction.target = target;
 
-    // Calcular la probabilidad de escape si el jugador tiene menos del 15% de vida
-    if (target->getHealth() < target->getHealth() * 15) {
-        // Generar un número aleatorio entre 1 y 100
-        int escapeChance = rand() % 100 + 1;
-        // Si el número aleatorio está dentro del 5%, el enemigo intenta escapar
-        if (escapeChance <= 15) {
-            myAction.action = [this]() {
-                cout << getName() << " ha escapado." << endl;
-            };
-            return myAction;
-        }
+    //TODO: generar una probabilidad
+
+    Character* target = getTarget(player);
+    srand(time(NULL));
+    if (this->getHealth() < MaxHealth && rand() % 100 < 15){
+        myAction.action = [this, target]() {
+            this->fleed = true;
+        };
+    } else {
+        myAction.target = target;
+        myAction.action = [this, target]() {
+            doAttack(target);
+        };
     }
-
-    // Si no intenta escapar, realiza el ataque normal
-    myAction.action = [this, target]() {
-        doAttack(target);
-    };
-
     return myAction;
 }
+

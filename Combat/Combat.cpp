@@ -1,4 +1,5 @@
 //created by Pc Andrea on 13/03/24
+
 #include "Combat.h"
 #include <iostream>
 #include <algorithm>
@@ -47,13 +48,11 @@ void Combat::prepareCombat() {
 void Combat::doCombat() {
     prepareCombat();
 
-    //Este while es 1 iteracion por ronda
     while(enemies.size() != 0 && teamMembers.size() != 0) {
         registerActions();
         executeActions();
     }
 
-    //No se imprime el nombre del ganador
     if(enemies.size() == 0) {
         cout<<"You have won the combat"<<endl;
     }
@@ -64,7 +63,7 @@ void Combat::doCombat() {
 
 void Combat::registerActions() {
     vector<Character*>::iterator participant = participants.begin();
-    //Una iteracion por turno de cada participante (player y enemigo)
+
     while(participant != participants.end()) {
         Character* target = nullptr;
         Action currentAction;
@@ -85,9 +84,19 @@ void Combat::executeActions() {
         Action currentAction = actions.top();
         currentAction.action();
         checkForFlee(currentAction.subscriber);
-        checkParticipantStatus(currentAction.subscriber);
-        checkParticipantStatus(currentAction.target);
-        actions.pop();
+        if(currentAction.target!= nullptr)
+        {
+            checkParticipantStatus(currentAction.subscriber);
+            checkParticipantStatus(currentAction.target);
+            actions.pop();
+        }
+        else{
+            while (!actions.empty()) {
+                actions.pop();
+            }
+        }
+
+
     }
 }
 
@@ -117,11 +126,10 @@ void Combat::checkForFlee(Character *character) {
         participants.erase(remove(participants.begin(), participants.end(), character), participants.end());
     }
 }
-
 string Combat::participantsToString() {
     string result = "";
     for (int i = 0; i < participants.size(); i++) {
-        result += participants[i]->toString() + "\n";
+        result += participants[i]->toString()  + "\n";
     }
     return result;
 }

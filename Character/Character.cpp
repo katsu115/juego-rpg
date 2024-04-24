@@ -1,21 +1,29 @@
 //created by Pc Andrea on 13/03/24
 #include "Character.h"
+#include <cstring>
+#include<iostream>
 
-Character::Character(string _name, int _health, int _attack, int _defense, int _speed, bool _isPlayer) {
-    name = _name;
+
+
+Character::Character(char _name[30], int _health, int _attack, int _defense, int _speed, bool _isPlayer, char _arm[20]) {
+    strcpy_s(name, _name);
     health = _health;
     attack = _attack;
     defense = _defense;
     speed = _speed;
     isPlayer = _isPlayer;
     fleed = false;
+    strcpy_s(arm, _arm);
 }
 
-void Character::setName(string _name) {
-    name = _name;
+
+//metodos
+
+void Character::setName(char _name[30]) {
+    strcpy_s(name, _name);
 }
 
-string Character::getName() {
+char* Character::getName() {
     return name;
 }
 
@@ -51,8 +59,8 @@ int Character::getSpeed() {
     return speed;
 }
 
-string Character::toString() {
-    return "Name: " + name + "\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed);
+char Character::toString() {
+    cout<< "Name: " << name << "\nHealth: " + to_string(health) + "\nAttack: " + to_string(attack) + "\nDefense: " + to_string(defense) + "\nSpeed: " + to_string(speed);
 }
 
 bool Character::getIsPlayer() {
@@ -61,4 +69,12 @@ bool Character::getIsPlayer() {
 
 bool Character::hasFleed() {
     return fleed;
+}
+
+void Character::setArm(char _arm[20]) {
+    strcpy_s(arm, _arm);
+}
+
+char* Character::getArm() {
+    return arm;
 }

@@ -3,25 +3,37 @@
 #include "Enemy/Enemy.h"
 #include "Player/Player.h"
 #include "Combat/Combat.h"
-
+#include <cstring>
 
 using namespace std;
 
 int main() {
+    cout << " ¿ quien eres?" << endl;
+    char PlayerName[30];
+    cin.getline(PlayerName, 30);
 
-    Player *player = new Player("nodca", 15, 5, 2, 10);
-    Enemy *enemy = new Enemy("katsu", 15, 5, 1, 7);
-    Enemy *enemy2 = new Enemy("lolo", 15, 5, 5, 2);
+    cout << " ¿quien es tu enemigo? " << endl;
+    char EnemyName[30];
+    cin.getline(EnemyName, 30);
 
+    cout<<" que arma usaras: "<< endl;
+    char PlayerArm [30];
+    cin.getline(PlayerArm, 30);
+
+    cout<<"que arma usara tu enemigo: "<< endl;
+    char EnemyArm[30];
+    cin.getline(EnemyArm, 30);
+
+
+    Player *player = new Player(PlayerName, 35, 7, 2, 10,EnemyArm);
+    Enemy *enemy = new Enemy(EnemyName,20, 5, 2, 7,PlayerArm);
 
     vector<Character*> participants;
     participants.push_back(player);
     participants.push_back(enemy);
-    participants.push_back(enemy2);
-
 
     Combat* combat = new Combat(participants);
-    combat -> doCombat();
+    combat->doCombat();
 
     delete player;
     delete enemy;
