@@ -1,4 +1,7 @@
 //created by Pc Andrea on 13/03/24
+
+#include <cstring>
+
 #ifndef Jueguito_CHARACTER_H
 #define Jueguito_CHARACTER_H
 #include<string>
@@ -8,8 +11,9 @@
 
 using namespace std;
 
+
 class Character {
-protected:
+public:
     char name[30];
     int health;
     int attack;
@@ -18,9 +22,11 @@ protected:
     bool isPlayer;
     bool fleed;
     char arm[20];
+    int experience;
+    int level;
 
 public:
-    Character(char[30], int, int, int, int, bool, char[20]);
+    Character(char[30], int, int, int, int, bool, char[20], int, int );
 
     virtual void doAttack(Character *target) = 0;
     virtual void takeDamage(int damage) = 0;
@@ -41,6 +47,8 @@ public:
     bool hasFleed();
     void setArm(char[20]);
     char* getArm();
+    int getExperience();
+    int getLevel();
 };
 
 #endif

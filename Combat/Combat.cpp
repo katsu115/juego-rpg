@@ -1,5 +1,6 @@
 //created by Pc Andrea on 13/03/24
 
+
 #include "Combat.h"
 #include <iostream>
 #include <algorithm>
@@ -45,19 +46,58 @@ void Combat::prepareCombat() {
     sort(participants.begin(), participants.end(), compareSpeed);
 }
 
+
+
 void Combat::doCombat() {
     prepareCombat();
 
-    while(enemies.size() != 0 && teamMembers.size() != 0) {
+
+    while (enemies.size() != 0 && teamMembers.size() != 0) {
         registerActions();
         executeActions();
     }
 
-    if(enemies.size() == 0) {
-        cout<<"You have won the combat"<<endl;
+    if (enemies.size() == 0) {
+        cout << "You have won the combat." << endl;
+
+        for (Enemy* enemy : enemies) {
+
+            if (enemy->health <= 0) {
+
+                cout << "Enemy had " << enemy->experience << " experience." << endl;
+            }
+        }
+
+        for (Player* player : teamMembers) {
+
+            cout << "Player " << player->getName() << " has won " << player->experience << " experience." << endl;
+        }
+    } else {
+        cout << "The enemies have won the combat - Game Over." << endl;
     }
-    else {
-        cout<<"The enemies have won the combat - Game Over"<<endl;
+
+
+    for (Player *player: teamMembers) {
+        cout << "Level up " << endl;
+        cout << player->health << endl;
+        cout << player->attack << endl;
+        cout << player->defense << endl;
+    }
+}
+
+
+
+void Combat::increaseEnemyStats(int points) {
+
+    for (Enemy *enemy: enemies) {
+
+
+        int healthIncrease = points / 3;
+        int attackIncrease = points / 3;
+        int defenseIncrease = points - healthIncrease - attackIncrease;
+        enemy->health += healthIncrease;
+        enemy->attack += attackIncrease;
+        enemy->defense += defenseIncrease;
     }
 }
 
@@ -79,7 +119,7 @@ void Combat::registerActions() {
 }
 
 void Combat::executeActions() {
-    //Aqui se ejecutan las acciones
+
     while(!actions.empty()) {
         Action currentAction = actions.top();
         currentAction.action();
@@ -113,19 +153,23 @@ void Combat::checkParticipantStatus(Character* participant) {
 }
 
 void Combat::checkForFlee(Character *character) {
+
+    if (character->getHealth() <= 0) {
+        return; //
+    }
     bool fleed = character->hasFleed();
-    if(fleed) {
-        if(character->getIsPlayer()) {
-            cout<<"You have fled the combat"<<endl;
+    if (fleed) {
+        if (character->getIsPlayer()) {
+            cout << "You have fled the combat" << endl;
             teamMembers.erase(remove(teamMembers.begin(), teamMembers.end(), character), teamMembers.end());
-        }
-        else {
-            cout<<character->getName()<<" has fled the combat"<<endl;
+        } else {
+            cout << character->getName() << " has fled the combat" << endl;
             enemies.erase(remove(enemies.begin(), enemies.end(), character), enemies.end());
         }
         participants.erase(remove(participants.begin(), participants.end(), character), participants.end());
     }
 }
+
 string Combat::participantsToString() {
     string result = "";
     for (int i = 0; i < participants.size(); i++) {

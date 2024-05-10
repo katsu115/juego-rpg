@@ -1,6 +1,7 @@
 //created by Pc Andrea on 13/03/24
-#ifndef Juego_COMBAT_H
-#define Juego_H
+
+#ifndef Jueguito_COMBAT_H
+#define Jueguito_H
 #pragma once
 #include "../Character/Character.h"
 #include "../Player/Player.h"
@@ -9,9 +10,11 @@
 #include <vector>
 #include <string>
 #include <queue>
+#include <Combat.h>
 
 using namespace std;
-
+class Enemy;
+class player;
 class Combat {
 private:
 
@@ -37,6 +40,9 @@ public:
     void addParticipant(Character *participant);
     void doCombat();
     string participantsToString();
+
+
+    void increaseEnemyStats(int points);
 };
 
 #endif

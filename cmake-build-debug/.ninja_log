@@ -39,3 +39,9 @@
 1409	2045	7356226035750545	Jueguito.exe	1ee81055adecf08b
 10	1414	7356226259631908	CMakeFiles/Jueguito.dir/main.cpp.obj	de778bddbe6b570e
 1416	1893	7356226264369745	Jueguito.exe	1ee81055adecf08b
+82	1600	7370093669212045	CMakeFiles/Jueguito.dir/Character/Character.cpp.obj	28cf230182bbab24
+34	1758	7370093670800292	CMakeFiles/Jueguito.dir/Enemy/Enemy.cpp.obj	e637b163dc39f21
+50	1806	7370093671298202	CMakeFiles/Jueguito.dir/main.cpp.obj	de778bddbe6b570e
+9	1920	7370093672445138	CMakeFiles/Jueguito.dir/Player/Player.cpp.obj	cb1f18a3b5370eef
+63	2395	7370093677175924	CMakeFiles/Jueguito.dir/Combat/Combat.cpp.obj	d22e7dba1b0f535c
+2395	3148	7370093684682308	Jueguito.exe	1ee81055adecf08b
